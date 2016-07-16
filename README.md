@@ -14,7 +14,7 @@ Things i would like to see added:
 * methods for draw order within layers
 * method for draw order within scenes
 * whatever else you think of
-*
+
 Here is a simple game class to get you started...
 ```
 /// <summary>
