@@ -8,7 +8,14 @@ This is quite minimal and still needs some building out but its enough to get an
 * A Scene is a collection of layers
 * A Layer is a collection of sprites
 
-Here is a simple game class
+Things i would like to see added:
+* A resource manager to allow loading/unloading assets for levels
+* Full collection implementations on layer and scene
+* methods for draw order within layers
+* method for draw order within scenes
+* whatever else you think of
+*
+Here is a simple game class to get you started...
 ```
 /// <summary>
 /// Allows the game to perform any initialization it needs to before starting to run.
