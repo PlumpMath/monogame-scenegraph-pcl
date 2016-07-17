@@ -13,14 +13,8 @@ namespace MonoGameSceneGraph
             center = new Vector2((float)texture.Width / 2, (float)texture.Height / 2);
             this.scale = new Vector2(1f, 1f);
             this.tint = Color.White;
-        }
-        public Sprite(Texture2D texture, float x=0f, float y=0f, float scale=1f, Color? tint = null)
-        {
-            this.texture = texture;
-            position = new Vector2(x,y);
-            center = new Vector2((float)texture.Width/2, (float)texture.Height/2);
-            this.scale = new Vector2(scale,scale);
-            this.tint = tint ?? Color.White;
+            this.rotation = 0f;
+            this.effects = SpriteEffects.None;
         }
 
         public SpriteBatch SpriteBatch
@@ -42,6 +36,12 @@ namespace MonoGameSceneGraph
             set { position.Y = value; }
         }
 
+        public float Z
+        {
+            get { return z; }
+            set { z = value; }
+        }
+
         public float Scale
         {
             get { return scale.Y; }
@@ -58,32 +58,60 @@ namespace MonoGameSceneGraph
             set { tint = value; }
         }
 
-        private Vector2 position;
-        private SpriteBatch spriteBatch;
-        private Vector2 scale;
-        private Color tint;
+        public float Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
 
-        private readonly Texture2D texture;        
-        private readonly Vector2 center;        
-        
+        public SpriteEffects SpriteEffects
+        {
+            get { return effects; }
+            set { effects = value; }
+        }
+
+        public float CenterX
+        {
+            get { return center.X;  }
+            set { center.X = value; }
+        }
+
+        public float CenterY
+        {
+            get { return center.Y; }
+            set { center.Y = value; }
+        }
+
+        public Rectangle? SourceRect { get; set; }
+        public Rectangle? DestRect { get; set; }
 
         public void Draw(GameTime gameTime)
         {
             spriteBatch.Draw(
                 texture: texture, 
                 position: position,
-                destinationRectangle: null, 
-                sourceRectangle: null,
+                destinationRectangle: DestRect, 
+                sourceRectangle: SourceRect,
                 origin: center,
-                rotation: 0f,
+                rotation: rotation,
                 scale: scale,
                 color: tint, 
-                effects: SpriteEffects.None, 
-                layerDepth: 0f);
+                effects: effects, 
+                layerDepth: z);
         }
 
         public virtual void Update(GameTime gameTime, TouchCollection touchCollection)
         {
         }
+
+        private float z;
+        private float rotation;
+        private Vector2 position;
+        private SpriteBatch spriteBatch;
+        private Vector2 scale;
+        private Color tint;
+        private SpriteEffects effects;
+        private Vector2 center;
+        private readonly Texture2D texture;
     }
 }
