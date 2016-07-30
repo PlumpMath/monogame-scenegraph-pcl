@@ -1,10 +1,12 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using System.Diagnostics;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 
 namespace MonoGameSceneGraph
 {
-    public class Sprite
+    public class Sprite : Component
     {
         public Sprite(Texture2D texture)
         {
@@ -15,13 +17,8 @@ namespace MonoGameSceneGraph
             this.tint = Color.White;
             this.rotation = 0f;
             this.effects = SpriteEffects.None;
-        }
-
-        public SpriteBatch SpriteBatch
-        {
-            set {
-                this.spriteBatch = value;
-            }            
+            this.srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
+            this.destRect = new Rectangle(0, 0, texture.Width, texture.Height);
         }
 
         public float X
@@ -82,36 +79,79 @@ namespace MonoGameSceneGraph
             set { center.Y = value; }
         }
 
-        public Rectangle? SourceRect { get; set; }
+        public int SourceRectX
+        {
+            set { srcRect.X = value; }
+            get { return srcRect.X; }
+        }
+        public int SourceRectY
+        {
+            set { srcRect.Y = value; }
+            get { return srcRect.Y; }
+        }
+        public int SourceRectWidth
+        {
+            set { srcRect.Width = value; }
+            get { return srcRect.Width; }
+        }
+        public int SourceRectHeight
+        {
+            set { srcRect.Height = value; }
+            get { return srcRect.Height; }
+        }
+
+        public int DestRectX
+        {
+            set { destRect.X = value; }
+            get { return destRect.X; }
+        }
+        public int DestRectY
+        {
+            set { destRect.Y = value; }
+            get { return destRect.Y; }
+        }
+        public int DestRectWidth
+        {
+            set { destRect.Width = value; }
+            get { return destRect.Width; }
+        }
+        public int DestRectHeight
+        {
+            set { destRect.Height = value; }
+            get { return destRect.Height; }
+        }
+
+
         public Rectangle? DestRect { get; set; }
 
-        public void Draw(GameTime gameTime)
+        public override void Draw(GameTime gameTime, SpriteBatch batch)
         {
-            spriteBatch.Draw(
-                texture: texture, 
+            batch.Draw(
+                texture: texture,
                 position: position,
-                destinationRectangle: DestRect, 
-                sourceRectangle: SourceRect,
+                //destinationRectangle: destRect,
+                sourceRectangle: srcRect,
                 origin: center,
                 rotation: rotation,
                 scale: scale,
-                color: tint, 
-                effects: effects, 
+                color: tint,
+                effects: effects,
                 layerDepth: z);
         }
 
-        public virtual void Update(GameTime gameTime, TouchCollection touchCollection)
+        public override void Update(GameTime gameTime, TouchCollection touchCollection)
         {
         }
 
+        private Rectangle srcRect;
+        private Rectangle destRect;
         private float z;
         private float rotation;
         private Vector2 position;
-        private SpriteBatch spriteBatch;
         private Vector2 scale;
         private Color tint;
         private SpriteEffects effects;
         private Vector2 center;
-        private readonly Texture2D texture;
+        private Texture2D texture;
     }
 }

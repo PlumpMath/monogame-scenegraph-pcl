@@ -6,31 +6,22 @@ using Microsoft.Xna.Framework.Input.Touch;
 
 namespace MonoGameSceneGraph
 {
-    public class Scene : IEnumerable<Layer>
+    public class Scene : IList<Layer>
     {
-        private readonly List<Layer> layers;
         private readonly GraphicsDevice graphicsDevice;
-
+        private List<Layer> layers;
+         
         public Scene(GraphicsDevice graphiceDevice)
         {
-            layers = new List<Layer>();
             this.graphicsDevice = graphiceDevice;
+            this.layers = new List<Layer>();
         }
 
-        public IEnumerator<Layer> GetEnumerator()
+        public Layer AddLayer()
         {
-            return layers.GetEnumerator();
-        }
-
-        IEnumerator IEnumerable.GetEnumerator()
-        {
-            return this.GetEnumerator();
-        }
-
-        public void Add(Layer layer)
-        {
-            layer.Init(graphicsDevice);
-            layers.Add(layer);
+            var layer = new Layer(graphicsDevice);
+            Add( layer );
+            return layer;
         }
 
         /// <summary>
@@ -41,7 +32,6 @@ namespace MonoGameSceneGraph
         public void Update(GameTime gameTime)
         {
             TouchCollection touchCollection = TouchPanel.GetState();
-
             foreach (var layer in layers)
                 layer.Update(gameTime, touchCollection);
         }
@@ -53,9 +43,77 @@ namespace MonoGameSceneGraph
         public void Draw(GameTime gameTime)
         {
             graphicsDevice.Clear(Color.Black);
-
-            foreach (var layer in layers)
+            foreach(var layer in layers)
                 layer.Draw(gameTime);
+        }
+
+        public IEnumerator<Layer> GetEnumerator()
+        {
+            return layers.GetEnumerator();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return ((IEnumerable) layers).GetEnumerator();
+        }
+
+        public void Add(Layer item)
+        {
+            layers.Add(item);
+        }
+
+        public void Clear()
+        {
+            layers.Clear();
+        }
+
+        public bool Contains(Layer item)
+        {
+            return layers.Contains(item);
+        }
+
+        public void CopyTo(Layer[] array, int arrayIndex)
+        {
+            layers.CopyTo(array, arrayIndex);
+        }
+
+        public bool Remove(Layer item)
+        {
+            return layers.Remove(item);
+        }
+
+        public int Count
+        {
+            get { return layers.Count; }
+        }
+
+        public bool IsReadOnly
+        {
+            get { return false; }
+        }
+
+        public int IndexOf(Layer item)
+        {
+            return layers.IndexOf(item);
+        }
+
+        public void Insert(int index, Layer item)
+        {
+            layers.Insert(index, item);
+        }
+
+        public void RemoveAt(int index)
+        {
+            layers.RemoveAt(index);
+        }
+
+        public Layer this[int index]
+        {
+            get
+            {
+                return layers[index];
+            }
+            set { layers[index] = value; }
         }
     }
 }
