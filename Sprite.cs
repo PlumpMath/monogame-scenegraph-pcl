@@ -12,6 +12,7 @@ namespace MonoGameSceneGraph
         {
             this.texture = texture;
             position = new Vector2(0f, 0f);
+            worldPosition = new Vector2(0f,0f);
             center = new Vector2((float)texture.Width / 2, (float)texture.Height / 2);
             this.scale = new Vector2(1f, 1f);
             this.tint = Color.White;
@@ -21,23 +22,6 @@ namespace MonoGameSceneGraph
             this.destRect = new Rectangle(0, 0, texture.Width, texture.Height);
         }
 
-        public float X
-        {
-            get { return position.X; }
-            set { position.X = value; }
-        }
-
-        public float Y
-        {
-            get { return position.Y; }
-            set { position.Y = value; }
-        }
-
-        public float Z
-        {
-            get { return z; }
-            set { z = value; }
-        }
 
         public float Scale
         {
@@ -128,7 +112,7 @@ namespace MonoGameSceneGraph
         {
             batch.Draw(
                 texture: texture,
-                position: position,
+                position: worldPosition,
                 //destinationRectangle: destRect,
                 sourceRectangle: srcRect,
                 origin: center,
@@ -137,17 +121,11 @@ namespace MonoGameSceneGraph
                 color: tint,
                 effects: effects,
                 layerDepth: z);
-        }
-
-        public override void Update(GameTime gameTime, TouchCollection touchCollection)
-        {
-        }
+        }        
 
         private Rectangle srcRect;
         private Rectangle destRect;
-        private float z;
         private float rotation;
-        private Vector2 position;
         private Vector2 scale;
         private Color tint;
         private SpriteEffects effects;
