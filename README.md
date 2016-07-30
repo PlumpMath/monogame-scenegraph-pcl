@@ -3,14 +3,17 @@
 MonoGame is awesome for writing games on android/IOS in Xamarin but its entirely functional. This small scenegraph is my beginning step to writing an object-oriented game api on monogame. If you are just getting started in monogame, check out this repo. It should save you a bit of time and get you up and running with monogame.
 
 *Pull Requests happily accepted*
-This is quite minimal and still needs some building out but its enough to get anyone new started quickly. Currently there are three classes. Scene, Layer, and Sprite. Each of these is extendable.
+This is quite minimal and still needs some building out but its enough to get anyone new started quickly. Currently there are four classes. Scene, Layer, Entity, and Sprite. Each of these is extendable.
 
 * A Scene is a collection of layers
-* A Layer is a collection of sprites
+* A Layer is a collection of components
+* An Entity is a type of component and a collection of components.
+* A Sprite is a type of component
+
+![dependencies](https://github.com/digital-synapse/monogame-scenegraph-pcl/raw/master/assets/TypeDependencies.PNG)
 
 Things i would like to see added:
 * A resource manager to allow loading/unloading assets for levels
-* Full collection implementations on layer and scene
 * methods for draw order within layers
 * method for draw order within scenes
 * whatever else you think of
