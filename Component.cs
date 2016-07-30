@@ -1,42 +1,55 @@
-﻿using Microsoft.Xna.Framework;
+﻿using System;
+using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
 
 namespace MonoGameSceneGraph
 {
-    public abstract class Component
+    public class Component
     {
-        public abstract void Draw(GameTime gameTime, SpriteBatch batch);
-
-        public virtual void Update(GameTime gameTime, TouchCollection touchCollection, float parentX, float parentY)
+        public virtual void Draw(GameTime gameTime, SpriteBatch batch)
         {
-            WorldX = parentX + X;
-            WorldY = parentY + Y;
+            throw new NotImplementedException();
         }
+
+        public virtual void Update(GameTime gameTime, TouchCollection touchCollection)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Attach(Component parent)
+        {
+            this.parent = parent;
+        }
+        public void Detach()
+        {
+            this.parent = null;
+        }
+
+        private Component parent;
 
         public float X
         {
             get { return position.X; }
-            set { position.X = value; }
+            set
+            {
+                position.X = value;
+                worldPosition.X = value + parent.worldPosition.X;
+            }
         }
 
         public float Y
         {
             get { return position.Y; }
-            set { position.Y = value; }
+            set
+            {
+                position.Y = value;
+                worldPosition.Y = value + parent.worldPosition.Y;
+            }
         }
 
-        public float WorldX
-        {
-            get { return worldPosition.X; }
-            private set { worldPosition.X = value; }
-        }
-
-        public float WorldY
-        {
-            get { return worldPosition.Y; }
-            private set { worldPosition.Y = value; }
-        }
+        public float WorldX => worldPosition.X;
+        public float WorldY => worldPosition.Y;
 
         public float Z
         {
@@ -46,6 +59,7 @@ namespace MonoGameSceneGraph
 
         protected float z;
         protected Vector2 position;
-        protected Vector2 worldPosition;
+
+        protected Vector2 worldPosition; 
     }
 }

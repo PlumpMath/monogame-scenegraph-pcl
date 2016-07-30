@@ -11,7 +11,7 @@ namespace MonoGameSceneGraph
         public Sprite(Texture2D texture)
         {
             this.texture = texture;
-            position = new Vector2(0f, 0f);
+            position = new Vector2(0f, 0f);            
             worldPosition = new Vector2(0f,0f);
             center = new Vector2((float)texture.Width / 2, (float)texture.Height / 2);
             this.scale = new Vector2(1f, 1f);
@@ -19,6 +19,21 @@ namespace MonoGameSceneGraph
             this.rotation = 0f;
             this.effects = SpriteEffects.None;
             this.srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
+            this.destRect = new Rectangle(0, 0, texture.Width, texture.Height);
+        }
+
+        public Sprite(Texture2D texture, Color? tint=null, float? scaleX=null, float? scaleY=null, float? scale=null, float? rotation=null, float? centerX=null, 
+            float? centerY=null, int? srcX=null, int? srcY=null, int? srcWidth=null, int? srcHeight=null, SpriteEffects effects = SpriteEffects.None)
+        {
+            this.texture = texture;
+            position = new Vector2(0f, 0f);
+            worldPosition = new Vector2(0f, 0f);
+            center = new Vector2(centerX ?? ((float)texture.Width / 2), centerY ?? ((float)texture.Height / 2));
+            this.scale = new Vector2(scaleX ?? scale ?? 1f, scaleY ?? scale ?? 1f);
+            this.tint = tint ?? Color.White;
+            this.rotation = rotation ?? 0f;
+            this.effects = effects;
+            this.srcRect = new Rectangle(srcX ?? 0, srcY ?? 0, srcWidth ?? texture.Width, srcHeight ?? texture.Height);
             this.destRect = new Rectangle(0, 0, texture.Width, texture.Height);
         }
 
@@ -121,7 +136,11 @@ namespace MonoGameSceneGraph
                 color: tint,
                 effects: effects,
                 layerDepth: z);
-        }        
+        }
+
+        public override void Update(GameTime gameTime, TouchCollection touchCollection)
+        {            
+        }
 
         private Rectangle srcRect;
         private Rectangle destRect;

@@ -33,7 +33,7 @@ namespace MonoGameSceneGraph
         {
             TouchCollection touchCollection = TouchPanel.GetState();
             foreach (var layer in layers)
-                layer.Update(gameTime, touchCollection,0,0);
+                layer.Update(gameTime, touchCollection);
         }
 
         /// <summary>

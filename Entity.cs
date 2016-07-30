@@ -14,13 +14,11 @@ namespace MonoGameSceneGraph
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// <param name="touchCollection">An object represeting the current input state.</param>
-        public override void Update(GameTime gameTime, TouchCollection touchCollection, float parentX, float parentY)
-        {
-            base.Update(gameTime,touchCollection,parentX,parentY);
-
+        public override void Update(GameTime gameTime, TouchCollection touchCollection)
+        {            
             foreach (var item in items)
             {
-                item.Update(gameTime, touchCollection, WorldX, WorldY );
+                item.Update(gameTime, touchCollection);
             }
         }
 
@@ -54,6 +52,7 @@ namespace MonoGameSceneGraph
         
         public void Clear()
         {
+            foreach (var item in items) item.Detach();
             items.Clear();
         }
 
@@ -69,6 +68,7 @@ namespace MonoGameSceneGraph
 
         public bool Remove(Component item)
         {
+            item.Detach();
             return items.Remove(item);
         }
 
@@ -89,16 +89,19 @@ namespace MonoGameSceneGraph
         
         public void RemoveAt(int index)
         {
+            items[index].Detach();
             items.RemoveAt(index);
         }
         
         public virtual void Add(Component item)
         {
+            item.Attach(this);
             items.Add(item);
         }
 
         public virtual void Insert(int index, Component item)
         {
+            item.Attach(this);
             items.Insert(index, item);
         }
 
@@ -110,6 +113,7 @@ namespace MonoGameSceneGraph
             }
             set
             {
+                value.Attach(this);
                 items[index] = value;
             }
         }
