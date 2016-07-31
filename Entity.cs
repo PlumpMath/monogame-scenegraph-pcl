@@ -15,7 +15,9 @@ namespace MonoGameSceneGraph
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// <param name="touchCollection">An object represeting the current input state.</param>
         public override void Update(GameTime gameTime, TouchCollection touchCollection)
-        {            
+        {     
+            base.Update(gameTime, touchCollection);
+                   
             foreach (var item in items)
             {
                 item.Update(gameTime, touchCollection);

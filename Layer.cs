@@ -12,10 +12,12 @@ namespace MonoGameSceneGraph
         public Layer(GraphicsDevice graphicsDevice)
         {            
             batch = new SpriteBatch(graphicsDevice);
-            
+
             //empty component parent needed for worldXY calculation
             // speed optimization, more memmory usage less null reference checks
-            Attach(new Component());
+            var component= new Component();
+            component.Init();
+            Attach(component);
         }
 
         private readonly SpriteBatch batch;

@@ -9,49 +9,57 @@ namespace MonoGameSceneGraph
     {
         public virtual void Draw(GameTime gameTime, SpriteBatch batch)
         {
-            throw new NotImplementedException();
         }
 
         public virtual void Update(GameTime gameTime, TouchCollection touchCollection)
         {
-            throw new NotImplementedException();
+            worldPosition.X = component.WorldX + X;
+            worldPosition.Y = component.WorldY + Y;
+            worldRotation = component.WorldRotation + rotation;
+            worldScale.X = component.WorldScaleX * scale.X;
+            worldScale.Y = component.WorldScaleY * scale.Y;
+        }
+
+        public virtual void Init()
+        {
+            position = new Vector2(0f, 0f);
+            worldPosition = new Vector2(0f, 0f);
+            scale = new Vector2(1f, 1f);
+            worldScale = new Vector2(1f, 1f);
+            rotation = 0f;
         }
 
         public void Attach(Component parent)
         {
-            this.parent = parent;
+            this.component = parent;
+            Init();
         }
         public void Detach()
         {
-            this.parent = null;
+            this.component = null;
         }
 
-        private Component parent;
-
-        public float X
-        {
-            get { return position.X; }
-            set
-            {
-                position.X = value;
-                worldPosition.X = value + parent.worldPosition.X;
-            }
-        }
-
-        public float Y
-        {
-            get { return position.Y; }
-            set
-            {
-                position.Y = value;
-                worldPosition.Y = value + parent.worldPosition.Y;
-            }
-        }
+        protected Component component { get; private set; }
 
         public float WorldX => worldPosition.X;
         public float WorldY => worldPosition.Y;
+        public float WorldRotation => worldRotation;
+        public float WorldScaleX => worldScale.X;
+        public float WorldScaleY => worldScale.Y;
 
-        public float Z
+        public virtual float X
+        {
+            get { return position.X; }
+            set { position.X = value; }
+        }
+
+        public virtual float Y
+        {
+            get { return position.Y; }
+            set { position.Y = value; }
+        }
+
+        public virtual float Z
         {
             get { return z; }
             set { z = value; }
@@ -60,6 +68,101 @@ namespace MonoGameSceneGraph
         protected float z;
         protected Vector2 position;
 
-        protected Vector2 worldPosition; 
+        protected Vector2 worldPosition;
+
+        public virtual float Scale
+        {
+            get { return scale.Y; }
+            set
+            {
+                scale.X = value;
+                scale.Y = value;
+            }
+        }
+
+        public virtual Color Tint
+        {
+            get { return tint; }
+            set { tint = value; }
+        }
+
+        public virtual float Rotation
+        {
+            get { return rotation; }
+            set { rotation = value; }
+        }
+
+        public virtual SpriteEffects SpriteEffects
+        {
+            get { return effects; }
+            set { effects = value; }
+        }
+
+        public virtual float CenterX
+        {
+            get { return center.X; }
+            set { center.X = value; }
+        }
+
+        public virtual float CenterY
+        {
+            get { return center.Y; }
+            set { center.Y = value; }
+        }
+
+        public virtual int SourceRectX
+        {
+            set { srcRect.X = value; }
+            get { return srcRect.X; }
+        }
+        public virtual int SourceRectY
+        {
+            set { srcRect.Y = value; }
+            get { return srcRect.Y; }
+        }
+        public virtual int SourceRectWidth
+        {
+            set { srcRect.Width = value; }
+            get { return srcRect.Width; }
+        }
+        public virtual int SourceRectHeight
+        {
+            set { srcRect.Height = value; }
+            get { return srcRect.Height; }
+        }
+
+        public virtual int DestRectX
+        {
+            set { destRect.X = value; }
+            get { return destRect.X; }
+        }
+        public virtual int DestRectY
+        {
+            set { destRect.Y = value; }
+            get { return destRect.Y; }
+        }
+        public virtual int DestRectWidth
+        {
+            set { destRect.Width = value; }
+            get { return destRect.Width; }
+        }
+        public virtual int DestRectHeight
+        {
+            set { destRect.Height = value; }
+            get { return destRect.Height; }
+        }
+
+        public Rectangle? DestRect { get; set; }
+
+        protected Rectangle srcRect;
+        protected Rectangle destRect;
+        protected float rotation;
+        protected float worldRotation;
+        protected Vector2 scale;
+        protected Vector2 worldScale;
+        protected Color tint;
+        protected SpriteEffects effects;
+        protected Vector2 center;
+
     }
 }

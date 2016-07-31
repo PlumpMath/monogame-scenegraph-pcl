@@ -34,6 +34,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="App.cs" />
     <Compile Include="Component.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="Layer.cs" />

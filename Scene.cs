@@ -8,18 +8,16 @@ namespace MonoGameSceneGraph
 {
     public class Scene : IList<Layer>
     {
-        private readonly GraphicsDevice graphicsDevice;
         private List<Layer> layers;
          
-        public Scene(GraphicsDevice graphiceDevice)
+        public Scene()
         {
-            this.graphicsDevice = graphiceDevice;
             this.layers = new List<Layer>();
         }
 
         public Layer AddLayer()
         {
-            var layer = new Layer(graphicsDevice);
+            var layer = new Layer(App.GraphicsDevice);
             Add( layer );
             return layer;
         }
@@ -42,8 +40,9 @@ namespace MonoGameSceneGraph
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public void Draw(GameTime gameTime)
         {
-            graphicsDevice.Clear(Color.Black);
-            foreach(var layer in layers)
+            App.GraphicsDevice.Clear(Color.Black);
+            
+            foreach (var layer in layers)
                 layer.Draw(gameTime);
         }
 
