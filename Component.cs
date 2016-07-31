@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
@@ -18,6 +19,8 @@ namespace MonoGameSceneGraph
             worldRotation = component.WorldRotation + rotation;
             worldScale.X = component.WorldScaleX * scale.X;
             worldScale.Y = component.WorldScaleY * scale.Y;
+            worldVelocity.X = component.WorldVelocityX + velocity.X;
+            worldVelocity.Y = component.WorldVelocityY + velocity.Y;
         }
 
         public virtual void Init()
@@ -27,9 +30,24 @@ namespace MonoGameSceneGraph
             scale = new Vector2(1f, 1f);
             worldScale = new Vector2(1f, 1f);
             rotation = 0f;
+            velocity = new Vector2(0f,0f);
+            worldVelocity = new Vector2(0f,0f);
         }
 
-        public void Attach(Component parent)
+        public virtual void ReceiveMessage(int message)
+        {
+            
+        }
+
+        public void Broadcast(int message)
+        {
+            var siblings = component.Where(x => x != this);
+            foreach (var sibling in siblings)
+                sibling.ReceiveMessage(message);
+        }
+
+
+        public void Attach(Entity parent)
         {
             this.component = parent;
             Init();
@@ -38,8 +56,8 @@ namespace MonoGameSceneGraph
         {
             this.component = null;
         }
-
-        protected Component component { get; private set; }
+       
+        protected Entity component { get; private set; }
 
         public float WorldX => worldPosition.X;
         public float WorldY => worldPosition.Y;
@@ -152,6 +170,27 @@ namespace MonoGameSceneGraph
             get { return destRect.Height; }
         }
 
+        public virtual float VelocityX
+        {
+            get { return velocity.X; }
+            set { velocity.X = value; }
+        }
+        public virtual float VelocityY
+        {
+            get { return velocity.Y; }
+            set { velocity.Y = value; }
+        }
+        public virtual float WorldVelocityX
+        {
+            get { return worldVelocity.X; }
+            set { worldVelocity.X = value; }
+        }
+        public virtual float WorldVelocityY
+        {
+            get { return worldVelocity.Y; }
+            set { worldVelocity.Y = value; }
+        }
+
         public Rectangle? DestRect { get; set; }
 
         protected Rectangle srcRect;
@@ -163,6 +202,7 @@ namespace MonoGameSceneGraph
         protected Color tint;
         protected SpriteEffects effects;
         protected Vector2 center;
-
+        protected Vector2 velocity;
+        protected Vector2 worldVelocity;
     }
 }

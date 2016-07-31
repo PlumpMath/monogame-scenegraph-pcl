@@ -30,9 +30,9 @@ namespace MonoGameSceneGraph
                 origin: center,
                 rotation: worldRotation,
                 scale: worldScale,
-                color: tint,
-                effects: effects,
-                layerDepth: z);
+                color: Tint,
+                effects: SpriteEffects,
+                layerDepth: Z);
         }
 
         public Texture2D Texture
