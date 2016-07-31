@@ -1,13 +1,15 @@
 # monogame-scenegraph-pcl
 
-This small scenegraph is my beginning step to implementing the [component pattern](http://gameprogrammingpatterns.com/component.html)  on monogame. If you are just getting started in monogame, check out this repo. It should save you a bit of time and get you up and running with monogame.
+This small scenegraph is my beginning step to implementing the [component pattern](http://gameprogrammingpatterns.com/component.html)  on monogame. The built in XNA component classes aren't really applicable to the component pattern so I decided to write one myself. If you are just getting started in monogame, check out this repo. It should save you a bit of time and get you up and running with monogame.
 
 *Pull Requests happily accepted*
-This is quite minimal and still needs some building out but its enough to get anyone new started quickly. Currently there are four classes. Scene, Layer, Entity, and Sprite. Each of these is extendable.
+This is quite minimal and still needs some building out but its enough to get anyone new started quickly. Currently there are six classes. App, Scene, Layer, Entity, Component, and Sprite. Each of these is extendable.
 
+* App is a global singleton
 * A Scene is a collection of layers
+* Component is a reusable base class 
 * A Layer is a collection of components
-* An Entity is a type of component and a collection of components.
+* An Entity is a container. Its both a type of component and a collection of components.
 * A Sprite is a type of component
 
 ![dependencies](https://github.com/digital-synapse/monogame-scenegraph-pcl/raw/master/assets/TypeDependencies.PNG)
