@@ -57,7 +57,7 @@ namespace MonoGameSceneGraph
         {
             
         }
-        public void Broadcast(params object[] message)
+        public void BroadcastMessage(params object[] message)
         {
             var siblings = Entity.Where(x => x != this);
             foreach (var sibling in siblings)

@@ -14,6 +14,50 @@ This is quite minimal and still needs some building out but its enough to get an
 
 ![dependencies](https://github.com/digital-synapse/monogame-scenegraph-pcl/raw/master/assets/TypeDependencies.PNG)
 
+The idea here is to compose game entities of reusable components. These components may control sprites, animations, sounds, input, or whatever else you want. The advantage to the component pattern is that we get alot more flexibility and code reusability over complex inheritance hierarchies! 
+
+*Communication via Shared State*
+Layers, Entities, and Components have a small amount of shared state. This is intentionally limited as to reduce the memmory footprint. Shared state properties include:
+* X
+* Y
+* Rotation
+* Scale(X/Y)
+* Velocity
+
+Changes to these local values will flow down to children through the corresponding World properties (read only).
+* WorldX
+* WorldY
+* WorldRotation
+* WorldScale
+* WorldVelocity
+
+For example: The world position of a component is the sum of the component position + the entity position + the layer position. 
+
+*Communication via Component Broadcasts*
+A component can broadcast (fire and forget it) message to all of its siblings using the BroadcastMessage() / ReceiveMessage() methods. This is a great way to do simple cross component communication without making components tightly bound to eachother!
+```
+// a component update method...
+public override void Update(GameTime gameTime, TouchCollection touchCollection)
+{
+    if (touchCollection.Count==0){
+		BroadcastMessage(MessageType.MovementStopped);
+	}
+	else {
+		// movement code here
+	}
+}
+
+// ... in another component
+public override void ReceiveMessage(object[] message){
+    var messageType = object[0] as MessageType;
+	if (mesageType != null){
+		if (messageType == messageType.MovementStopped){
+			// Do some custom logic here
+		}
+	}
+}
+```
+
 Things i would like to see added:
 * A resource manager to allow loading/unloading assets for levels
 * methods for draw order within layers
