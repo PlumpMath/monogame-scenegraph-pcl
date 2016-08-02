@@ -16,9 +16,21 @@ namespace MonoGameSceneGraph
             this.effects = SpriteEffects.None;
             this.srcRect = new Rectangle(0, 0, texture.Width, texture.Height);
             this.destRect = new Rectangle(0, 0, texture.Width, texture.Height);
-        }        
+        }
 
+        public override void Update(GameTime gameTime, TouchCollection touchCollection)
+        {
+            base.Update(gameTime, touchCollection);
 
+            //for cases when the sprite is moving right to left, the rotation angle will be >90deg or < -90deg, 
+            //so the sprite will be drawn upside down.
+            // fix this by flipping the sprite vertically
+            SpriteEffects = SpriteEffects.None;
+            if (worldVelocity.X < 0)
+            {
+                SpriteEffects = SpriteEffects.FlipVertically;
+            }
+        }
 
         public override void Draw(GameTime gameTime, SpriteBatch batch)
         {
@@ -41,7 +53,79 @@ namespace MonoGameSceneGraph
             set { texture = value; }
         }
 
+        public virtual SpriteEffects SpriteEffects
+        {
+            get { return effects; }
+            set { effects = value; }
+        }
+
+        public virtual Color Tint
+        {
+            get { return tint; }
+            set { tint = value; }
+        }
+
+        public virtual float CenterX
+        {
+            get { return center.X; }
+            set { center.X = value; }
+        }
+
+        public virtual float CenterY
+        {
+            get { return center.Y; }
+            set { center.Y = value; }
+        }
+
+        public virtual int SourceRectX
+        {
+            set { srcRect.X = value; }
+            get { return srcRect.X; }
+        }
+        public virtual int SourceRectY
+        {
+            set { srcRect.Y = value; }
+            get { return srcRect.Y; }
+        }
+        public virtual int SourceRectWidth
+        {
+            set { srcRect.Width = value; }
+            get { return srcRect.Width; }
+        }
+        public virtual int SourceRectHeight
+        {
+            set { srcRect.Height = value; }
+            get { return srcRect.Height; }
+        }
+
+        public virtual int DestRectX
+        {
+            set { destRect.X = value; }
+            get { return destRect.X; }
+        }
+        public virtual int DestRectY
+        {
+            set { destRect.Y = value; }
+            get { return destRect.Y; }
+        }
+        public virtual int DestRectWidth
+        {
+            set { destRect.Width = value; }
+            get { return destRect.Width; }
+        }
+        public virtual int DestRectHeight
+        {
+            set { destRect.Height = value; }
+            get { return destRect.Height; }
+        }
+
         private Texture2D texture;
+        public Rectangle? DestRect { get; set; }
+        protected Rectangle srcRect;
+        protected Rectangle destRect;
+        protected Color tint;
+        protected SpriteEffects effects;
+        protected Vector2 center;
 
     }
 }

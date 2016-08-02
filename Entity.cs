@@ -33,8 +33,7 @@ namespace MonoGameSceneGraph
             foreach (var item in items)
                 item.Draw(gameTime, batch);
         }
-
-
+        
         // --- IList implementation -------------------------------------------------------------------
         public Entity()
         {
