@@ -41,7 +41,7 @@ A component can broadcast (fire and forget it) message to all of its siblings us
 // a component update method...
 public override void Update(GameTime gameTime, TouchCollection touchCollection)
 {
-    if (touchCollection.Count==0){
+	if (touchCollection.Count==0){
 		BroadcastMessage(MessageType.MovementStopped);
 	}
 	else {
@@ -51,10 +51,12 @@ public override void Update(GameTime gameTime, TouchCollection touchCollection)
 
 // ... in another component
 public override void ReceiveMessage(object[] message){
-    var messageType = object[0] as MessageType;
-	if (mesageType != null){
-		if (messageType == messageType.MovementStopped){
-			// Do some custom logic here
+	if (message.Count > 0) {
+		var messageType = message[0] as MessageType;
+		if (mesageType != null){
+			if (messageType == messageType.MovementStopped){
+				// Do some custom logic here
+			}
 		}
 	}
 }
