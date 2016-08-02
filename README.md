@@ -2,8 +2,44 @@
 
 This small scenegraph is my beginning step to implementing the [component pattern](http://gameprogrammingpatterns.com/component.html)  on monogame. The built in XNA component classes aren't really applicable to the component pattern so I decided to write one myself. If you are just getting started in monogame, check out this repo. It should save you a bit of time and get you up and running with monogame.
 
+Getting started with scenegraph is easy. Here is a fully functional example Game.cs
+```
+    public class Game1: Game
+    {
+        GraphicsDeviceManager graphics;        
+        private App app;
+
+        public Game1()
+        {
+            graphics = new GraphicsDeviceManager(this);            
+            graphics.IsFullScreen = true;
+        }
+        protected override void Initialize()
+        {
+            app = new App(GraphicsDevice);            
+            base.Initialize();
+        }
+        protected override void LoadContent()
+        {
+            // Load resources and add layers, and entities here
+            var layer = App.Scene.AddLayer();
+            for (var i = 0; i < 100; i++) layer.Add(new MyEntity());
+        }
+        protected override void Update(GameTime gameTime)
+        {
+            App.Update(gameTime);            
+            base.Update(gameTime);
+        }
+        protected override void Draw(GameTime gameTime)
+        {
+            App.Draw(gameTime);
+            base.Draw(gameTime);
+        }
+    }
+```
+
 *Pull Requests happily accepted*
-This is quite minimal and still needs some building out but its enough to get anyone new started quickly. Currently there are six classes. App, Scene, Layer, Entity, Component, and Sprite. Each of these is extendable.
+Currently there are six classes. App, Scene, Layer, Entity, Component, and Sprite. Each of these is extendable.
 
 * App is a global singleton
 * A Scene is a collection of layers
