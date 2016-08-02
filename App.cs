@@ -13,10 +13,10 @@ namespace MonoGameSceneGraph
         public static Random Random { get; private set; }
         public static GraphicsDevice GraphicsDevice { get; private set; }
         public static Scene Scene { get; private set; }
-
+        public static GameTime GameTime { get; private set; }
         public App(GraphicsDevice graphicsDevice)
         {
- 
+            GameTime = new GameTime();
             Random = new Random();
             GraphicsDevice = graphicsDevice;            
             Scene = new Scene();
@@ -31,6 +31,10 @@ namespace MonoGameSceneGraph
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         public static void Update(GameTime gameTime)
         {
+            // here we are updating the global GameTime once per logic frame instead
+            // of once per tick. Still this is good enough for most things that need
+            // to access game time outside of an Update() or Draw()
+            GameTime = gameTime;
             Scene.Update(gameTime);
         }
 

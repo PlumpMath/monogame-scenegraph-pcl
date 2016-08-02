@@ -15,13 +15,30 @@ namespace MonoGameSceneGraph
 
         public virtual void Update(GameTime gameTime, TouchCollection touchCollection)
         {
-            worldPosition.X = Entity.WorldX + X;
-            worldPosition.Y = Entity.WorldY + Y;
-            worldRotation = Entity.WorldRotation + rotation;
-            worldScale.X = Entity.WorldScaleX * scale.X;
-            worldScale.Y = Entity.WorldScaleY * scale.Y;
-            worldVelocity.X = Entity.WorldVelocityX + velocity.X;
-            worldVelocity.Y = Entity.WorldVelocityY + velocity.Y;
+            if (Entity != null)
+            {
+                worldPosition.X = Entity.WorldX + X;
+                worldPosition.Y = Entity.WorldY + Y;
+                worldRotation = Entity.WorldRotation + rotation;
+                worldScale.X = Entity.WorldScaleX*scale.X;
+                worldScale.Y = Entity.WorldScaleY*scale.Y;
+                worldVelocity.X = Entity.WorldVelocityX + velocity.X;
+                worldVelocity.Y = Entity.WorldVelocityY + velocity.Y;
+            }
+            else
+            {
+                worldPosition.X = X;
+                worldPosition.Y = Y;
+                worldRotation = rotation;
+                worldScale.X = scale.X;
+                worldScale.Y = scale.Y;
+                worldVelocity.X = velocity.X;
+                worldVelocity.Y = velocity.Y;
+            }
+
+            // update position
+            //position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds; 
+            //worldPosition += worldVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds; 
         }
 
         public virtual void Init()
