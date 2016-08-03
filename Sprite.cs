@@ -8,7 +8,7 @@ namespace MonoGameSceneGraph
 {
     public class Sprite : Component
     {
-        public virtual void Init(Texture2D texture)
+        public Sprite(Entity parent, Texture2D texture) : base(parent)
         {
             this.texture = texture;            
             center = new Vector2((float)texture.Width / 2, (float)texture.Height / 2);
@@ -34,6 +34,8 @@ namespace MonoGameSceneGraph
 
         public override void Draw(GameTime gameTime, SpriteBatch batch)
         {
+            if (worldPosition.X<1 && worldPosition.Y<1) Debugger.Break();
+
             batch.Draw(
                 texture: texture,
                 position: worldPosition,
@@ -53,74 +55,74 @@ namespace MonoGameSceneGraph
             set { texture = value; }
         }
 
-        public virtual SpriteEffects SpriteEffects
+        public SpriteEffects SpriteEffects
         {
             get { return effects; }
             set { effects = value; }
         }
 
-        public virtual Color Tint
+        public Color Tint
         {
             get { return tint; }
             set { tint = value; }
         }
 
-        public virtual float CenterX
+        public float CenterX
         {
             get { return center.X; }
             set { center.X = value; }
         }
 
-        public virtual float CenterY
+        public float CenterY
         {
             get { return center.Y; }
             set { center.Y = value; }
         }
 
-        public virtual int SourceRectX
+        public int SourceRectX
         {
             set { srcRect.X = value; }
             get { return srcRect.X; }
         }
-        public virtual int SourceRectY
+        public int SourceRectY
         {
             set { srcRect.Y = value; }
             get { return srcRect.Y; }
         }
-        public virtual int SourceRectWidth
+        public int SourceRectWidth
         {
             set { srcRect.Width = value; }
             get { return srcRect.Width; }
         }
-        public virtual int SourceRectHeight
+        public int SourceRectHeight
         {
             set { srcRect.Height = value; }
             get { return srcRect.Height; }
         }
 
-        public virtual int DestRectX
+        public int DestRectX
         {
             set { destRect.X = value; }
             get { return destRect.X; }
         }
-        public virtual int DestRectY
+        public int DestRectY
         {
             set { destRect.Y = value; }
             get { return destRect.Y; }
         }
-        public virtual int DestRectWidth
+        public int DestRectWidth
         {
             set { destRect.Width = value; }
             get { return destRect.Width; }
         }
-        public virtual int DestRectHeight
+        public  int DestRectHeight
         {
             set { destRect.Height = value; }
             get { return destRect.Height; }
         }
 
-        private Texture2D texture;
-        public Rectangle? DestRect { get; set; }
+        protected Texture2D texture;
+        protected Rectangle? DestRect { get; set; }
         protected Rectangle srcRect;
         protected Rectangle destRect;
         protected Color tint;

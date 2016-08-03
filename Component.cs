@@ -35,14 +35,11 @@ namespace MonoGameSceneGraph
                 worldVelocity.X = velocity.X;
                 worldVelocity.Y = velocity.Y;
             }
-
-            // update position
-            //position += velocity * (float)gameTime.ElapsedGameTime.TotalSeconds; 
-            //worldPosition += worldVelocity * (float)gameTime.ElapsedGameTime.TotalSeconds; 
         }
 
-        public virtual void Init()
+        public Component(Entity parent)
         {
+            Entity = parent;
             position = new Vector2(0f, 0f);
             worldPosition = new Vector2(0f, 0f);
             scale = new Vector2(1f, 1f);
@@ -64,15 +61,6 @@ namespace MonoGameSceneGraph
                 sibling.ReceiveMessage(message);
         }
 
-        public void Attach(Entity parent)
-        {
-            this.Entity = parent;
-            Init();
-        }
-        public void Detach()
-        {
-            this.Entity = null;
-        }
        
         protected Entity Entity { get; private set; }
 
@@ -81,25 +69,25 @@ namespace MonoGameSceneGraph
         public float WorldRotation => worldRotation;
         public float WorldScaleX => worldScale.X;
         public float WorldScaleY => worldScale.Y;
-        public virtual float WorldVelocityX => worldVelocity.X;
-        public virtual float WorldVelocityY => worldVelocity.Y;
+        public float WorldVelocityX => worldVelocity.X;
+        public float WorldVelocityY => worldVelocity.Y;
 
-        public virtual float X
+        public float X
         {
             get { return position.X; }
             set { position.X = value; }
         }
-        public virtual float Y
+        public float Y
         {
             get { return position.Y; }
             set { position.Y = value; }
         }
-        public virtual float Z
+        public float Z
         {
             get { return z; }
             set { z = value; }
         }
-        public virtual float Scale
+        public float Scale
         {
             get { return scale.Y; }
             set
@@ -108,27 +96,27 @@ namespace MonoGameSceneGraph
                 scale.Y = value;
             }
         }
-        public virtual float ScaleX
+        public float ScaleX
         {
             get { return scale.X; }
             set { scale.X = value; }
         }
-        public virtual float ScaleY
+        public float ScaleY
         {
             get { return scale.Y; }
             set { scale.Y = value; }
         }
-        public virtual float Rotation
+        public float Rotation
         {
             get { return rotation; }
             set { rotation = value; }
         }
-        public virtual float VelocityX
+        public float VelocityX
         {
             get { return velocity.X; }
             set { velocity.X = value; }
         }
-        public virtual float VelocityY
+        public float VelocityY
         {
             get { return velocity.Y; }
             set { velocity.Y = value; }

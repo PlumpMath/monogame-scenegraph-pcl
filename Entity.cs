@@ -35,7 +35,7 @@ namespace MonoGameSceneGraph
         }
         
         // --- IList implementation -------------------------------------------------------------------
-        public Entity()
+        public Entity() : base(null)
         {
             items = new List<Component>();
         }
@@ -53,7 +53,6 @@ namespace MonoGameSceneGraph
         
         public void Clear()
         {
-            foreach (var item in items) item.Detach();
             items.Clear();
         }
 
@@ -69,7 +68,6 @@ namespace MonoGameSceneGraph
 
         public bool Remove(Component item)
         {
-            item.Detach();
             return items.Remove(item);
         }
 
@@ -90,23 +88,20 @@ namespace MonoGameSceneGraph
         
         public void RemoveAt(int index)
         {
-            items[index].Detach();
             items.RemoveAt(index);
         }
         
-        public virtual void Add(Component item)
+        public void Add(Component item)
         {
-            item.Attach(this);
             items.Add(item);
         }
 
-        public virtual void Insert(int index, Component item)
+        public void Insert(int index, Component item)
         {
-            item.Attach(this);
             items.Insert(index, item);
         }
 
-        public virtual Component this[int index]
+        public Component this[int index]
         {
             get
             {
@@ -114,7 +109,6 @@ namespace MonoGameSceneGraph
             }
             set
             {
-                value.Attach(this);
                 items[index] = value;
             }
         }

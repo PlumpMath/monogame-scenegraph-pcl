@@ -58,7 +58,6 @@ namespace MonoGameSceneGraph
 
         public void Add(Layer item)
         {
-            item.Init();
             layers.Add(item);
         }
 
@@ -99,7 +98,6 @@ namespace MonoGameSceneGraph
 
         public void Insert(int index, Layer item)
         {
-            item.Init();
             layers.Insert(index, item);
         }
 
@@ -116,7 +114,6 @@ namespace MonoGameSceneGraph
             }
             set
             {
-                value.Init();
                 layers[index] = value;
             }
         }
