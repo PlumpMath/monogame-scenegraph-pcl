@@ -34,8 +34,6 @@ namespace MonoGameSceneGraph
 
         public override void Draw(GameTime gameTime, SpriteBatch batch)
         {
-            if (worldPosition.X<1 && worldPosition.Y<1) Debugger.Break();
-
             batch.Draw(
                 texture: texture,
                 position: worldPosition,
