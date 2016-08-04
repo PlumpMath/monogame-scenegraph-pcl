@@ -42,7 +42,8 @@ namespace MonoGameSceneGraph.Components
                 scale: worldScale,
                 color: Tint,
                 effects: SpriteEffects,
-                layerDepth: Z);
+                layerDepth: Z
+                );
         }
 
         public Texture2D Texture
