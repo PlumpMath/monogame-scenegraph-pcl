@@ -14,6 +14,7 @@ namespace MonoGameSceneGraph
         public static GraphicsDevice GraphicsDevice { get; private set; }
         public static Scene Scene { get; private set; }
         public static GameTime GameTime { get; private set; }
+
         public static void Init(GraphicsDevice graphicsDevice)
         {
             GameTime = new GameTime();
