@@ -29,11 +29,8 @@ namespace MonoGameSceneGraph.Components
 
         private Queue<float> _sampleBuffer = new Queue<float>();
 
-        public override void Update(GameTime gameTime, TouchCollection touchCollection)
+        private void calculateFPS(float deltaTime)
         {
-            base.Update(gameTime,touchCollection);
-
-            var deltaTime = (float)gameTime.ElapsedGameTime.TotalSeconds;
             CurrentFramesPerSecond = 1.0f / deltaTime;
 
             _sampleBuffer.Enqueue(CurrentFramesPerSecond);
@@ -49,15 +46,16 @@ namespace MonoGameSceneGraph.Components
             }
 
             TotalFrames++;
-            TotalSeconds += deltaTime;            
+            TotalSeconds += deltaTime;
         }
 
         public override void Draw(GameTime gameTime, SpriteBatch batch)
         {
             base.Draw(gameTime, batch);
 
+            calculateFPS((float)gameTime.ElapsedGameTime.TotalSeconds);
+            
             var fps = $"FPS: { Math.Round(AverageFramesPerSecond) }";
-
             batch.DrawString(font, fps, position, color);
         }
     }
