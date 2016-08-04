@@ -35,7 +35,7 @@ namespace MonoGameSceneGraph
         }
         
         // --- IList implementation -------------------------------------------------------------------
-        public Entity() : base(null)
+        public Entity(Entity parent=null) : base(parent)
         {
             items = new List<Component>();
         }
