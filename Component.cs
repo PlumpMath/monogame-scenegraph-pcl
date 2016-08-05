@@ -12,7 +12,7 @@ namespace MonoGameSceneGraph
     {
         public Component(Entity parent)
         {
-            Entity = parent;
+            Parent = parent;
             RelativePositioning = true;
             position = new Vector2(0f, 0f);
             worldPosition = new Vector2(0f, 0f);
@@ -29,15 +29,15 @@ namespace MonoGameSceneGraph
 
         public virtual void Update(GameTime gameTime, TouchInfo[] touchCollection)
         {
-            if (Entity != null && RelativePositioning)
+            if (Parent != null && RelativePositioning)
             {
-                worldPosition.X = Entity.WorldX + X;
-                worldPosition.Y = Entity.WorldY + Y;
-                worldRotation = Entity.WorldRotation + rotation;
-                worldScale.X = Entity.WorldScaleX * scale.X;
-                worldScale.Y = Entity.WorldScaleY * scale.Y;
-                worldVelocity.X = Entity.WorldVelocityX + velocity.X;
-                worldVelocity.Y = Entity.WorldVelocityY + velocity.Y;
+                worldPosition.X = Parent.WorldX + X;
+                worldPosition.Y = Parent.WorldY + Y;
+                worldRotation = Parent.WorldRotation + rotation;
+                worldScale.X = Parent.WorldScaleX * scale.X;
+                worldScale.Y = Parent.WorldScaleY * scale.Y;
+                worldVelocity.X = Parent.WorldVelocityX + velocity.X;
+                worldVelocity.Y = Parent.WorldVelocityY + velocity.Y;
             }
             else
             {
@@ -59,13 +59,13 @@ namespace MonoGameSceneGraph
 
         public void BroadcastMessage(params object[] message)
         {
-            var siblings = Entity.Where(x => x != this);
+            var siblings = Parent.Where(x => x != this);
             foreach (var sibling in siblings)
                 sibling.ReceiveMessage(message);
         }
 
 
-        protected Entity Entity { get; private set; }
+        protected Entity Parent { get; private set; }
 
         public float WorldX => worldPosition.X;
         public float WorldY => worldPosition.Y;

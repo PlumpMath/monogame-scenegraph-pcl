@@ -5,34 +5,33 @@ using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
+using MonoGameSceneGraph.Support;
+using Viewport = MonoGameSceneGraph.Support.Viewport;
 
 namespace MonoGameSceneGraph
 {
     public class App 
     {
-        public static Random Random { get; private set; }
+        public static RandomNumberCache Random { get; private set; }
         public static GraphicsDevice GraphicsDevice { get; private set; }
         public static Scene Scene { get; private set; }
         public static GameTime GameTime { get; private set; }
-        public static Matrix ViewportMatrix { get; private set; }
-        public static Matrix InputMatrix { get; private set; }
-        public static float ViewportWidth { get; private set; }
-        public static float ViewportHeight { get; private set; }
+        public static Viewport Viewport { get; private set; }
+
+        public static float PI { get; private set; } = (float)System.Math.PI;
+        public static float PI2 { get; private set; } = (float)System.Math.PI * 2;
+
         public static void Init(GraphicsDevice graphicsDevice, float viewportWidth, float viewportHeight)
         {
-            GameTime = new GameTime();
-            Random = new Random();
+            GameTime = new GameTime();            
             GraphicsDevice = graphicsDevice;            
             Scene = new Scene();
 
-            // create res independant scale matrix
-            ViewportHeight = viewportHeight;
-            ViewportWidth = viewportWidth;
-            var scaleX = (float)App.GraphicsDevice.DisplayMode.Width / ViewportWidth;
-            var scaleY = (float)App.GraphicsDevice.DisplayMode.Height / ViewportHeight;
+            // Init random LUT
+            Random = new RandomNumberCache(2500);
 
-            ViewportMatrix = Matrix.CreateScale(scaleX, scaleY, 1.0f);
-            InputMatrix = Matrix.Invert(ViewportMatrix);
+            Viewport = new Viewport(graphicsDevice, viewportWidth, viewportHeight);
+            
         }
 
         /// <summary>

@@ -18,7 +18,7 @@ namespace MonoGameSceneGraph
 
         public void Draw(GameTime gameTime)
         {
-            batch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: App.ViewportMatrix);
+            batch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: App.Viewport.Matrix);
 
             base.Draw(gameTime, batch);
 

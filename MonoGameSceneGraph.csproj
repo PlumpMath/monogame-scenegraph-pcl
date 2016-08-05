@@ -42,7 +42,9 @@
     <Compile Include="Scene.cs" />
     <Compile Include="Components\Sprite.cs" />
     <Compile Include="Components\FrameCounter.cs" />
+    <Compile Include="Support\RandomNumberCache.cs" />
     <Compile Include="Support\TouchInfo.cs" />
+    <Compile Include="Support\Viewport.cs" />
   </ItemGroup>
   <ItemGroup>
     <Reference Include="MonoGame.Framework, Version=3.1.2.0, Culture=neutral, processorArchitecture=MSIL">

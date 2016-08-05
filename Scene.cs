@@ -35,7 +35,7 @@ namespace MonoGameSceneGraph
             TouchCollection touchCollection = TouchPanel.GetState();
 
             var touchInfos = touchCollection.Select(t => new TouchInfo(
-                Vector2.Transform(t.Position, App.InputMatrix),
+                Vector2.Transform(t.Position, App.Viewport.MatrixInv),
                 t.Pressure,
                 t.State)).ToArray();
 
