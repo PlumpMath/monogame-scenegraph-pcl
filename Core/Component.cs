@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
-using Microsoft.Xna.Framework.Input.Touch;
 using MonoGameSceneGraph.Support;
 
-namespace MonoGameSceneGraph
+namespace MonoGameSceneGraph.Core
 {
     public class Component
     {
