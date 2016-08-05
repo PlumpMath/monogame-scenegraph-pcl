@@ -1,6 +1,7 @@
 ﻿using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using MonoGameSceneGraph.Support;
 
 namespace MonoGameSceneGraph.Components
 {
@@ -16,7 +17,7 @@ namespace MonoGameSceneGraph.Components
             this.destRect = new Rectangle(0, 0, texture.Width, texture.Height);
         }
 
-        public override void Update(GameTime gameTime, TouchCollection touchCollection)
+        public override void Update(GameTime gameTime, TouchInfo[] touchCollection)
         {
             base.Update(gameTime, touchCollection);
 

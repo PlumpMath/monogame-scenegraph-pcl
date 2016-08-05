@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using MonoGameSceneGraph.Support;
 
 namespace MonoGameSceneGraph
 {
@@ -14,7 +15,7 @@ namespace MonoGameSceneGraph
         /// </summary>
         /// <param name="gameTime">Provides a snapshot of timing values.</param>
         /// <param name="touchCollection">An object represeting the current input state.</param>
-        public override void Update(GameTime gameTime, TouchCollection touchCollection)
+        public override void Update(GameTime gameTime, TouchInfo[] touchCollection)
         {     
             base.Update(gameTime, touchCollection);
                    

@@ -1,15 +1,18 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Xml.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using MonoGameSceneGraph.Support;
 
 namespace MonoGameSceneGraph
 {
     public class Scene : IList<Layer>
     {
         private List<Layer> layers;
-         
+
         public Scene()
         {
             this.layers = new List<Layer>();
@@ -30,8 +33,14 @@ namespace MonoGameSceneGraph
         public void Update(GameTime gameTime)
         {
             TouchCollection touchCollection = TouchPanel.GetState();
+
+            var touchInfos = touchCollection.Select(t => new TouchInfo(
+                Vector2.Transform(t.Position, App.InputMatrix),
+                t.Pressure,
+                t.State)).ToArray();
+
             foreach (var layer in layers)
-                layer.Update(gameTime, touchCollection);
+                layer.Update(gameTime, touchInfos);
         }
 
         /// <summary>

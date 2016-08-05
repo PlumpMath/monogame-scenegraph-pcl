@@ -11,14 +11,14 @@ namespace MonoGameSceneGraph
         
         public Layer(GraphicsDevice graphicsDevice)
         {            
-            batch = new SpriteBatch(graphicsDevice);            
+            batch = new SpriteBatch(graphicsDevice);
         }
 
         private readonly SpriteBatch batch;
 
         public void Draw(GameTime gameTime)
         {
-            batch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied);
+            batch.Begin(SpriteSortMode.Deferred, BlendState.NonPremultiplied, transformMatrix: App.ViewportMatrix);
 
             base.Draw(gameTime, batch);
 

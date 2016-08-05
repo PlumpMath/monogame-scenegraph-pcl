@@ -4,6 +4,7 @@ using System.Linq;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 using Microsoft.Xna.Framework.Input.Touch;
+using MonoGameSceneGraph.Support;
 
 namespace MonoGameSceneGraph
 {
@@ -26,7 +27,7 @@ namespace MonoGameSceneGraph
         {
         }
 
-        public virtual void Update(GameTime gameTime, TouchCollection touchCollection)
+        public virtual void Update(GameTime gameTime, TouchInfo[] touchCollection)
         {
             if (Entity != null && RelativePositioning)
             {

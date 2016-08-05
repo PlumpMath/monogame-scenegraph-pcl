@@ -14,13 +14,25 @@ namespace MonoGameSceneGraph
         public static GraphicsDevice GraphicsDevice { get; private set; }
         public static Scene Scene { get; private set; }
         public static GameTime GameTime { get; private set; }
-
-        public static void Init(GraphicsDevice graphicsDevice)
+        public static Matrix ViewportMatrix { get; private set; }
+        public static Matrix InputMatrix { get; private set; }
+        public static float ViewportWidth { get; private set; }
+        public static float ViewportHeight { get; private set; }
+        public static void Init(GraphicsDevice graphicsDevice, float viewportWidth, float viewportHeight)
         {
             GameTime = new GameTime();
             Random = new Random();
             GraphicsDevice = graphicsDevice;            
             Scene = new Scene();
+
+            // create res independant scale matrix
+            ViewportHeight = viewportHeight;
+            ViewportWidth = viewportWidth;
+            var scaleX = (float)App.GraphicsDevice.DisplayMode.Width / ViewportWidth;
+            var scaleY = (float)App.GraphicsDevice.DisplayMode.Height / ViewportHeight;
+
+            ViewportMatrix = Matrix.CreateScale(scaleX, scaleY, 1.0f);
+            InputMatrix = Matrix.Invert(ViewportMatrix);
         }
 
         /// <summary>
